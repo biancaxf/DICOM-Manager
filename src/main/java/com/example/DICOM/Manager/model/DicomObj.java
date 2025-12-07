@@ -28,8 +28,6 @@ public class DicomObj {
     @Column(name = "DESCRIERE", length = 200)
     private String descriere;
 
-    // NOTĂ: câmpurile ORDSYS.* NU sunt mapate în JPA
-
     @Column(name = "SOP_INSTANCE_UID", length = 64)
     private String sopInstanceUid;
 

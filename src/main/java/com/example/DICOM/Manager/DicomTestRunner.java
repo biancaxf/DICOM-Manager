@@ -20,7 +20,6 @@ public class DicomTestRunner implements CommandLineRunner {
         long count = dicomObjRepository.count();
         System.out.println("Total înregistrări în DICOM_OBJS: " + count);
 
-        // Încearcă o căutare simplă (schimbă UID cu unul existent în baza ta)
         var studyUid = "1.2.3.study";
         var results = dicomObjRepository.findByStudyUid(studyUid);
 

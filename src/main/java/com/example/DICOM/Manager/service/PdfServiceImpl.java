@@ -28,7 +28,7 @@ public class PdfServiceImpl implements PdfService{
         model.put("title", "DICOM Report");
         model.put("generatedAt", java.time.OffsetDateTime.now());
         model.put("previewDataUri", dataUri);
-        model.put("meta", r); // folosim direct UploadResponse în template
+        model.put("meta", r);
 
 
         org.thymeleaf.context.Context ctx = new org.thymeleaf.context.Context(java.util.Locale.getDefault());

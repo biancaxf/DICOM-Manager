@@ -36,7 +36,7 @@ public class DicomService {
     @Transactional
     public UploadResponse uploadDicom(MultipartFile file, String descriere) {
         if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("Fișierul este gol.");
+            throw new IllegalArgumentException("Fisierul este gol.");
         }
         try {
 
@@ -80,7 +80,6 @@ public class DicomService {
 
             repo.save(obj);
 
-            // 4) răspuns
             return mapToUploadResponse(obj, file.getOriginalFilename());
         } catch (Exception ex) {
             throw new org.springframework.web.server.ResponseStatusException(
@@ -105,17 +104,16 @@ public class DicomService {
     }
 
     private ExtraMeta extractExtraMeta(Attributes attr) {
-        String modality = trimToNull(attr.getString(Tag.Modality));     // (0008,0060)
-        String kvp      = trimToNull(attr.getString(Tag.KVP));          // (0018,0060)
+        String modality = trimToNull(attr.getString(Tag.Modality));
+        String kvp      = trimToNull(attr.getString(Tag.KVP));
 
-        // (0008,2218) Anatomic Region Sequence → preferăm Code Meaning (0008,0104)
         String anatomic = null;
         Sequence seq = attr.getSequence(Tag.AnatomicRegionSequence);
         if (seq != null && !seq.isEmpty()) {
             Attributes item = seq.get(0);
             anatomic = firstNonBlank(
-                    item.getString(Tag.CodeMeaning),  // (0008,0104)
-                    item.getString(Tag.CodeValue)     // (0008,0100) fallback
+                    item.getString(Tag.CodeMeaning),
+                    item.getString(Tag.CodeValue)
             );
         }
         return new ExtraMeta(modality, trimToNull(anatomic), kvp);
@@ -154,7 +152,7 @@ public class DicomService {
                 cd.set(Calendar.MILLISECOND, 0);
                 dt = cd.getTime();
             } else if (d != null) {
-                dt = d; // doar data (00:00)
+                dt = d;
             }
         }
         if (dt == null) return null;

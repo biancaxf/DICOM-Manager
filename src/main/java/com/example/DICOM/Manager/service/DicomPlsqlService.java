@@ -29,7 +29,6 @@ public class DicomPlsqlService {
         );
     }
 
-    // nou: semnătura folosită de DicomService (byte[])
     public void importFromBlob(long id, String filename, byte[] data) {
         jdbc.execute(
                 (org.springframework.jdbc.core.CallableStatementCreator) con -> {
@@ -47,7 +46,6 @@ public class DicomPlsqlService {
         );
     }
 
-    // păstrat pentru compatibilitate; delegă la varianta cu byte[]
     public void importFromBlob(long id, String filename, MultipartFile file) {
         jdbc.execute((java.sql.Connection conn) -> {
             try {
@@ -75,7 +73,6 @@ public class DicomPlsqlService {
         );
     }
 
-    // folosită de DicomService.getPreviewPng(...)
     public byte[] readPreview(Long id) {
         return fetchPreviewBytes(id);
     }
