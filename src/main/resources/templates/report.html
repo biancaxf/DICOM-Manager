@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">DICOM Report</title>
+    <style>
+    body { font-family: sans-serif; font-size: 12px; margin: 24px; }
+    h1 { font-size: 18px; margin: 0 0 4px 0; }
+    .muted { color: #666; font-size: 11px; margin-bottom: 16px; }
+    .preview { text-align: center; margin: 16px 0; }
+    .preview img { max-width: 100%; max-height: 500px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    td { border: 1px solid #ddd; padding: 6px 8px; vertical-align: top; }
+    td.key { width: 30%; font-weight: 600; background: #f7f7f7; }
+  </style>
+</head>
+<body>
+<h1 th:text="${title}">DICOM Report</h1>
+<div class="muted" th:text="'Generat la: ' + ${#temporals.format(generatedAt, 'yyyy-MM-dd HH:mm')}"></div>
+
+<div class="preview">
+    <img th:src="${previewDataUri}" alt="Preview DICOM"/>
+</div>
+
+<table>
+    <tr><td class="key">Descriere</td><td th:text="${meta.descriere}">-</td></tr>
+    <tr><td class="key">Patient Name</td><td th:text="${meta.patientName}">-</td></tr>
+    <tr><td class="key">Patient Birthdate</td><td th:text="${#temporals.format(meta.patientBirthdate, 'yyyy-MM-dd')}">-</td></tr>
+    <tr><td class="key">Referring Physician</td><td th:text="${meta.referringPhysician}">-</td></tr>
+    <tr><td class="key">Modality</td><td th:text="${meta.modality}">-</td></tr>
+    <tr><td class="key">Anatomic Region</td><td th:text="${meta.anatomicRegion}">-</td></tr>
+    <tr><td class="key">kVp</td><td th:text="${meta.kvp}">-</td></tr>
+    <tr><td class="key">Study UID</td><td th:text="${meta.studyUID}">-</td></tr>
+    <tr><td class="key">Series UID</td><td th:text="${meta.seriesUID}">-</td></tr>
+    <tr><td class="key">SOP Class UID</td><td th:text="${meta.sopClassUID}">-</td></tr>
+    <tr><td class="key">SOP Instance UID</td><td th:text="${meta.sopInstanceUID}">-</td></tr>
+    <tr><td class="key">Uploaded/Created At</td><td th:text="${#temporals.format(meta.createdAt, 'yyyy-MM-dd HH:mm')}">-</td></tr>
+    <tr><td class="key">File Size</td><td th:text="${meta.contentLength}">-</td></tr>
+</table>
+</body>
+</html>
